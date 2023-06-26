@@ -62,7 +62,7 @@ function App() {
             <div className="navbar bg-main-bg dark:bg-secondary-dark-bg w-full">
               <Navbar />
             </div>
-          </div>
+          
           <div>
             <Routes>
               {/* Dashboard */}
@@ -91,6 +91,7 @@ function App() {
               <Route path="/pyramid" element={<Pyramid />} />
               <Route path="/stacked" element={<Stacked />} />
             </Routes>
+          </div>
           </div>
         </div>
       </BrowserRouter>

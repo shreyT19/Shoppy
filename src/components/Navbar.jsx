@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
@@ -43,6 +43,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 const Navbar = () => {
   const { activeMenu, setActiveMenu,isClicked,setIsClicked,handleClick,screenSize,setScreenSize } = useStateContext();
 
+  
   // setting up navbar acc to screen size
   useEffect(()=>{
 
@@ -70,6 +71,8 @@ const Navbar = () => {
     }
   },[screenSize])
 
+
+  
   return (
     <div className="flex justify-between p-2 md:mx-6 relative">
       {/* Section 1 */}
@@ -78,7 +81,8 @@ const Navbar = () => {
         title="Menu"
         customFunc={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
         color="blue"
-        icon={<AiOutlineMenu />}
+        
+        icon={<AiOutlineMenu/>}
       />
 
       {/* Section 2 */}
