@@ -1,4 +1,4 @@
-import { createContext, useContext, useState,useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export const StateContext = createContext();
 
@@ -20,12 +20,34 @@ export const ContextProvider = ({ children }) => {
   //screenSize state
   const [screenSize, setScreenSize] = useState(undefined);
 
+  //themeBar state
+  const [themeSettings, setThemeSettings] = useState(false);
+
+  // to set color
+  const [currentColor, setCurrentColor] = useState("#03C9D7");
+
+  //to set light/dark mode
+  const [currentMode, setCurrentMode] = useState("Light");
+
   //handling button click actions
   const handleClick = (clickedElement) => {
     setIsClicked({ ...initialState, [clickedElement]: true });
   };
 
-  
+  //TO TOGGLE LIGHT/DARK MODE
+  const setMode = (event) => {
+    setCurrentMode(event.target.value);
+
+    setThemeSettings(false);
+    localStorage.setItem("currThemeMode", currentMode);
+  };
+
+  // TO TOGGLE COLOR MODE
+  const setColor = (color) => {
+    setCurrentColor(color);
+    setThemeSettings(false);
+    localStorage.setItem("currThemeColor", currentColor);
+  };
 
   return (
     <StateContext.Provider
@@ -36,7 +58,15 @@ export const ContextProvider = ({ children }) => {
         setIsClicked,
         handleClick,
         screenSize,
-        setScreenSize
+        setScreenSize,
+        themeSettings,
+        setThemeSettings,
+        currentColor,
+        currentMode,
+        setCurrentColor,
+        setCurrentMode,
+        setColor,
+        setMode,
       }}
     >
       {children}

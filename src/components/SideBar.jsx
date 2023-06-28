@@ -8,7 +8,7 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { links } from "../data/dummy";
 import { useStateContext } from "../context/ContextProvider";
 const SideBar = () => {
-  const {activeMenu,setActiveMenu,screenSize} = useStateContext();
+  const {activeMenu,setActiveMenu,screenSize,currentColor} = useStateContext();
 
   
   // Active Link CSS
@@ -29,7 +29,7 @@ const SideBar = () => {
   }
 
   return (
-    <div className="ml-3 h-screen  md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
+    <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
@@ -65,6 +65,9 @@ const SideBar = () => {
                       <NavLink
                         key={link.name}
                         to={`/${link.name}`}
+                        style={({isActive})=>({
+                          backgroundColor : isActive ? currentColor: ''
+                        })}
                         onClick={handleCloseSideBar}
                         className={({ isActive }) => (isActive ? activeLink : normalLink)}
                       >

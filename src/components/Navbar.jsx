@@ -14,7 +14,6 @@ import avatar from "../data/avatar.jpg";
 import { Cart, Chat, Notification, UserProfile } from ".";
 import { useStateContext } from "../context/ContextProvider";
 
-
 // title ⇒ Title for the button,
 //  customFunc ⇒ handlerFunction,
 // icon ⇒ icon of the button,
@@ -33,46 +32,48 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
       <span
         style={{ backgroundColor: dotColor }}
         className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
-     />
-        {icon}
-      
+      />
+      {icon}
     </button>
   </TooltipComponent>
 );
 
 const Navbar = () => {
-  const { activeMenu, setActiveMenu,isClicked,setIsClicked,handleClick,screenSize,setScreenSize } = useStateContext();
+  const {
+    activeMenu,
+    setActiveMenu,
+    isClicked,
+    setIsClicked,
+    handleClick,
+    screenSize,
+    setScreenSize,
+    currentColor,
+  } = useStateContext();
 
-  
   // setting up navbar acc to screen size
-  useEffect(()=>{
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setScreenSize(window.innerWidth);
+    };
 
-    const handleWindowResize = ()=>{
-      setScreenSize(window.innerWidth)
-    }
-
-    window.addEventListener('resize',handleWindowResize)
+    window.addEventListener("resize", handleWindowResize);
 
     //for initial render we need to calculate the width
-    handleWindowResize() ;
+    handleWindowResize();
 
     //cleanup function
 
-    return ()=> window.removeEventListener('resize',handleWindowResize)
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
 
-  },[])
-
-
-  useEffect(()=>{
-    if(screenSize <=900){
-      setActiveMenu(false)
-    }else{
-      setActiveMenu(true)
+  useEffect(() => {
+    if (screenSize <= 900) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
     }
-  },[screenSize])
+  }, [screenSize]);
 
-
-  
   return (
     <div className="flex justify-between p-2 md:mx-6 relative">
       {/* Section 1 */}
@@ -80,9 +81,8 @@ const Navbar = () => {
       <NavButton
         title="Menu"
         customFunc={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
-        color="blue"
-        
-        icon={<AiOutlineMenu/>}
+        color={currentColor}
+        icon={<AiOutlineMenu />}
       />
 
       {/* Section 2 */}
@@ -91,42 +91,46 @@ const Navbar = () => {
         <NavButton
           title="Cart"
           customFunc={() => handleClick("cart")}
-          color="blue"
+          color={currentColor}
           icon={<FiShoppingCart />}
         />
         {/* Chat Button */}
         <NavButton
           title="Chat"
           customFunc={() => handleClick("chat")}
-          color="blue"
+          color={currentColor}
           dotColor="#03C9D7"
           icon={<FiShoppingCart />}
-          />
+        />
 
         {/* Notification Button */}
         <NavButton
           title="Notification"
           customFunc={() => handleClick("notification")}
-          color="blue"
+          color={currentColor}
           dotColor="#03C9D7"
           icon={<RiNotification3Line />}
         />
         <TooltipComponent content="Profile" position="BottomCenter">
-          <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg" 
-          onClick={()=>handleClick("userProfile")}>
+          <div
+            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
+            onClick={() => handleClick("userProfile")}
+          >
             <img className="rounded-full h-8 w-8" src={avatar} alt="" />
             <p>
-              <span className="text-gray-400 text-14">Hi,</span> {' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">Shreyansh</span>
+              <span className="text-gray-400 text-14">Hi,</span>{" "}
+              <span className="text-gray-400 font-bold ml-1 text-14">
+                Shreyansh
+              </span>
             </p>
-            <MdKeyboardArrowDown/>
+            <MdKeyboardArrowDown />
           </div>
         </TooltipComponent>
 
-      {isClicked.cart && <Cart/>}
-      {isClicked.chat && <Chat/>}
-      {isClicked.notification && <Notification/>}
-      {isClicked.userProfile && <UserProfile/>}
+        {isClicked.cart && <Cart />}
+        {isClicked.chat && <Chat />}
+        {isClicked.notification && <Notification />}
+        {isClicked.userProfile && <UserProfile />}
       </div>
     </div>
   );
