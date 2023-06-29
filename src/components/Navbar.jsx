@@ -48,6 +48,7 @@ const Navbar = () => {
     screenSize,
     setScreenSize,
     currentColor,
+   
   } = useStateContext();
 
   // setting up navbar acc to screen size
@@ -87,13 +88,14 @@ const Navbar = () => {
 
       {/* Section 2 */}
       {/* Cart Button */}
-      <div className="flex">
-        <NavButton
+     <div className="flex">
+         <NavButton
+          
           title="Cart"
           customFunc={() => handleClick("cart")}
           color={currentColor}
           icon={<FiShoppingCart />}
-        />
+        /> 
         {/* Chat Button */}
         <NavButton
           title="Chat"
