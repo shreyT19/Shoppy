@@ -4,10 +4,10 @@ export const StateContext = createContext();
 
 //these are the initial states of nav bar components which will change on mouse click
 const initialState = {
-  chat: false,
+  // chat: false,
   cart: false,
-  userProfile: false,
-  notification: false,
+  // profile:false,
+  // notification: false,
 };
 
 export const ContextProvider = ({ children }) => {
@@ -33,6 +33,27 @@ export const ContextProvider = ({ children }) => {
   const handleClick = (clickedElement) => {
     setIsClicked({ ...initialState, [clickedElement]: true });
   };
+
+
+  const [profile,setProfile] = useState(false);
+  const [notification,setNotification] = useState(false);
+  const [chat,setChat] = useState(false);
+
+  const handleProfile = ()=>{
+    setProfile(!profile)
+    setChat(false)
+    setNotification(false)
+  }
+  const handleNotification = ()=>{
+    setNotification(!notification)
+    setChat(false)
+    setProfile(false)
+  }
+  const handleChat = ()=>{
+    setChat(!chat)
+    setNotification(false)
+    setProfile(false)
+  }
 
   //TO TOGGLE LIGHT/DARK MODE
   const setMode = (event) => {
@@ -67,6 +88,10 @@ export const ContextProvider = ({ children }) => {
         setCurrentMode,
         setColor,
         setMode,
+        profile,setProfile,
+        handleProfile
+        ,notification,setNotification,chat,setChat,handleNotification,handleChat
+
       }}
     >
       {children}
