@@ -32,6 +32,9 @@ export const ContextProvider = ({ children }) => {
   //handling button click actions
   const handleClick = (clickedElement) => {
     setIsClicked({ ...initialState, [clickedElement]: true });
+    setProfile(false)
+    setChat(false)
+    setNotification(false)
   };
 
 
